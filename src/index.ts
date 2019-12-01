@@ -9,17 +9,31 @@ import {ScaleSettings} from "./config/scaleSettings";
 import {ImgScale} from "./imgScale";
 import {YamlLoader} from "./yamlLoader";
 import {FileWatch} from "./fileWatch";
+import {PsdConverter} from "./psdConverter";
 
 function resize(settings: ScaleSettings) {
-    settings.output.forEach(output => {
-        new ImgScale(settings, output).scaleAndSave();
-    });
+    if (settings.input.toLowerCase().endsWith(".psd")) {
+        console.log(chalk.yellow(`  ! Pre-converting PSD to PNG ...`));
+        new PsdConverter(settings)
+            .convert()
+            .then((png) => {
+                settings.output.forEach(output => {
+                    new ImgScale(settings, output).scaleAndSave(png).then((input) => {
+                        fs.unlinkSync(input);
+                    });
+                });
+            })
+    } else {
+        settings.output.forEach(output => {
+            new ImgScale(settings, output).scaleAndSave().then(() => {});
+        });
+    }
 }
 
 function initScaleYaml() {
     let exampleScaleFile = "./scale.yml";
     if (fs.existsSync(exampleScaleFile)) {
-        console.log(chalk.red(`✗  There already is a scale.yml. I'll not override that!\n`));
+        console.error(chalk.red(`✗  There already is a scale.yml. I'll not override that!\n`));
         return;
     }
     fs.writeFile(exampleScaleFile, yaml.safeDump({
@@ -41,7 +55,7 @@ function initScaleYaml() {
         ]
     } as ScaleSettings), (err) => {
         if (err) {
-            console.log(chalk.red(`✗  Failed to initialize example scale.yml\n`, err));
+            console.error(chalk.red(`✗  Failed to initialize example scale.yml\n`, err));
         } else {
             console.log(chalk.green(`🚀  Created`, ph.join(__dirname, "scale.yml")));
             console.log(chalk.green(`    Run 'imgscale watch' in a folder or sub-folders with a scale.yml to watch for file changes`));
@@ -58,9 +72,9 @@ function initScaleYaml() {
         init = process.argv[2].toLowerCase() === "init";
     }
     console.log(
-        chalk.gray(
+        chalk.blue(
             figlet.textSync('imgscale', { horizontalLayout: 'full' })
-        ), chalk.blue("\n                         Auto-resize images on change\n")
+        ), chalk.green("\n                         Auto-resize images on change\n")
     );
     let found = false;
 
