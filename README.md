@@ -5,7 +5,7 @@
  | | | | | | | | | (_| | \__ \ | (__  | (_| | | | |  __/
  |_| |_| |_| |_|  \__, | |___/  \___|  \__,_| |_|  \___|
                   |___/                                  
-                         Auto-rescale images on change
+                         Auto-resize images on change
 ```
 
 Handy CLI tool to resize an image automatically, as soon as a change was detected.
@@ -40,7 +40,7 @@ output:
     format: png
 ```
 
-> You can have multiple `scale.yml` in one directory. Just call append a unique name to the filename: `scale_example1.yml`.
+> You can have multiple `scale.yml` in one directory. Just append a unique name to the filename: `scale_example1.yml`.
 
 ### Commands
 There are the following commands:

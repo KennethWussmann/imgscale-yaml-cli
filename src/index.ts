@@ -10,7 +10,7 @@ import {ImgScale} from "./imgScale";
 import {YamlLoader} from "./yamlLoader";
 import {FileWatch} from "./fileWatch";
 
-function rescale(settings: ScaleSettings) {
+function resize(settings: ScaleSettings) {
     settings.output.forEach(output => {
         new ImgScale(settings, output).scaleAndSave();
     });
@@ -60,7 +60,7 @@ function initScaleYaml() {
     console.log(
         chalk.gray(
             figlet.textSync('imgscale', { horizontalLayout: 'full' })
-        ), chalk.blue("\n                         Auto-rescale images on change\n")
+        ), chalk.blue("\n                         Auto-resize images on change\n")
     );
     let found = false;
 
@@ -91,10 +91,10 @@ function initScaleYaml() {
                             console.log(chalk.yellow("🔎  Watching", chalk.bold(ph.join(settings.pathPrefix!!, settings.input)), "..."));
                             new FileWatch(settings, () => {
                                 console.log(chalk.yellow("⚙️  Re-scaling ..."));
-                                rescale(settings);
+                                resize(settings);
                             }).watch();
                         }
-                        rescale(settings);
+                        resize(settings);
                     });
             })
         });
