@@ -15,7 +15,7 @@ You could export images from Photoshop and automatically resize them to use them
 > Install the CLI tool globally
 
 ```
-npm install -g imgscale
+npm install -g imgscale-yaml-cli
 ```
 This will automatically setup an example `scale.yml`. If not, create one where ever you need it:
 ```YAML

@@ -1,5 +1,5 @@
 {
-  "name": "imgscale",
+  "name": "imgscale-yaml-cli",
   "version": "1.0.0",
   "description": "Watch image files and auto-resize on change",
   "main": "index.js",
