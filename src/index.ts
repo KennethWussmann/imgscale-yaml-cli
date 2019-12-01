@@ -18,9 +18,7 @@ function resize(settings: ScaleSettings) {
             .convert()
             .then((png) => {
                 settings.output.forEach(output => {
-                    new ImgScale(settings, output).scaleAndSave(png).then((input) => {
-                        fs.unlinkSync(input);
-                    });
+                    new ImgScale(settings, output).scaleAndSave(png).then(() => {});
                 });
             })
     } else {
