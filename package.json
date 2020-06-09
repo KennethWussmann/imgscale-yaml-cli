@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@types/node": "^13.9.1",
-    "chalk": "^3.0.0",
+    "chalk": "^4.1.0",
     "figlet": "^1.2.4",
     "glob": "^7.1.6",
     "js-yaml": "^3.13.1",
