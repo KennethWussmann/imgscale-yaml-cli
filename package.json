@@ -37,7 +37,7 @@
     "typescript": "^3.7.2"
   },
   "dependencies": {
-    "@types/node": "^13.9.1",
+    "@types/node": "^14.6.3",
     "chalk": "^3.0.0",
     "figlet": "^1.2.4",
     "glob": "^7.1.6",
